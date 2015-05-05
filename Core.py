@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec 19 02:14:20 2014
-
-@author: maratmufteev
+Implementation of the Gillespie algorithm with classes. Architecture of the code is due to Paras Chopra (www.paraschopra.com).
 """
 import random
 import math
