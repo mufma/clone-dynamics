@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Implementation of the Gillespie algorithm with classes. Architecture of the code is due to Paras Chopra (www.paraschopra.com).
+Implementation of the Gillespie algorithm with classes. Architecture of the 
+code is due to Paras Chopra (www.paraschopra.com).
 """
 import random
 import math
