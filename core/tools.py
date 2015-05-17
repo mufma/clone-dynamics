@@ -68,7 +68,7 @@ def count_clones(data):
     [1,1,2,1,0]
     """
     count = []
-    print np.shape(data)
+    print "Shape of data array:", np.shape(data)
     for ind in range(np.shape(data)[1]):
         count.append(np.count_nonzero(data[:,ind]))
     return np.array(count)
@@ -118,7 +118,7 @@ def steady_renew_rate(alpha, omega, mup, p, num_of_clones, bone_capacity):
     
 def steady_clones_progenitors(alpha, omega, mup, p, num_of_clones, bone_capacity):
     """
-    Calculate number of alive(cell count > 0) clones in steady state.
+    Calculate number of alive(cell count > 0) progenitors clones in steady state.
     
     Variable types:
     alpha - float
@@ -130,9 +130,39 @@ def steady_clones_progenitors(alpha, omega, mup, p, num_of_clones, bone_capacity
     """
     mu = mup + omega
     C = num_of_clones
-    K = bone_capacity
     r_steady = steady_renew_rate(alpha, omega, mup, p, num_of_clones, bone_capacity)
     r = r_steady/mu
     a = alpha/r_steady
     
     return C*(1 - (1 - r)**a)
+
+def steady_clones_mature(alpha, omega, mup, p, mum, num_of_clones, bone_capacity):
+    """
+    Calculate number of alive(cell count > 0) mature clones in steady state.
+    
+    Variable types:
+    alpha - float
+    omega - float
+    mup - float
+    p - float
+    num_of_clones - integer/float
+    bone_capacity - integer/float
+    """
+    mu = mup + omega
+    C = num_of_clones
+    r_steady = steady_renew_rate(alpha, omega, mup, p, num_of_clones, bone_capacity)
+    r = r_steady/mu
+    a = alpha/r_steady
+    w = omega/mum
+
+    top = 1.0 - r
+    low = 1.0 - r*np.exp(-w)
+
+    return C*(1 - (top/low)**a)
+
+
+
+
+
+
+
