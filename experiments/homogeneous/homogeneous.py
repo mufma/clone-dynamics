@@ -1,4 +1,4 @@
-from core import engine
+import engine
 import json
 
 def main(alpha, p, mu_p, omega, mu_d, K, C):
