@@ -16,7 +16,7 @@ def choose(n, k):
 	if n >= k:
 		cumulator = 1
 		for ind in range(k):
-			cumulator *= (n-ind)/(ind+1)
+			cumulator *= float(n-ind)/(ind+1)
 		return cumulator
 	else:
 		return 0 
