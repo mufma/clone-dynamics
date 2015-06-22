@@ -1,7 +1,8 @@
 import engine
 import json
+import random
 
-def main(alpha, p, mu_p, omega, mu_d, K, C):
+def main(alpha_mean, p, mu_p, omega, mu_d, K, C):
 	stem = []
 	progenitors = []
 	mature = []
@@ -28,6 +29,10 @@ def main(alpha, p, mu_p, omega, mu_d, K, C):
 		S = stem[rep]
 		P = progenitors[rep]
 		M = mature[rep]
+		# Choose reaction rate to be positive
+		alpha = random.gauss(alpha_mean, 0.005)
+		while alpha < 0:
+		    alpha = random.gauss(alpha_mean, 0.005)
 		reactions.append(engine.reaction({stemname:1, 'data':[S]}, {stemname:1, progname:1, 'data':[S, P]}, 'StemDiff', progenitors, alpha))
 		reactions.append(engine.reaction({progname:1, 'data':[P]}, {progname:2, 'data':[P]}, 'Renew', progenitors, p, [K]))
 		reactions.append(engine.reaction({progname:1, 'data':[P]}, {matname:1, 'data':[M]}, 'BloodCreat', progenitors, omega))
@@ -47,5 +52,5 @@ def main(alpha, p, mu_p, omega, mu_d, K, C):
 	    text_file.write(json_progenitor)
 
 # Parameters of the reactions
-alpha, p, mu_p, omega, mu_d, K, C  = 0.01, 1.0, 0.2, 0.2, 0.2, 1000.0, 1000	    
-main(alpha, p, mu_p, omega, mu_d, K, C)
+alpha_mean, p, mu_p, omega, mu_d, K, C  = 0.01, 1.0, 0.2, 0.2, 0.2, 1000.0, 1000	    
+main(alpha_mean, p, mu_p, omega, mu_d, K, C)
