@@ -37,7 +37,7 @@ def convert_to_numpy(file):
         collector = np.vstack((collector, np.array(data[key])))
     return collector
 
-def count_clones(data):
+def count_clones_old(data):
     """
     Count number of alive(cellcount > 0) clones at each timestep.
     
@@ -72,6 +72,24 @@ def count_clones(data):
     for ind in range(np.shape(data)[1]):
         count.append(np.count_nonzero(data[:,ind]))
     return np.array(count)
+
+def count_clones(filename):
+    # Open file and read data
+    fo = open(filename, "r")
+    string = fo.read()
+    data = json.loads(string)
+    fo.close()
+
+    # Count living clones at each timestep 
+    tot = np.zeros(len(data["mature1"]))
+    for key in data.keys():
+        # For chosen clone find steps with cell count > 0
+        boolar = np.array(data[key])>0
+        # Convert boolean to 1's and 0's
+        countar = np.array(boolar, dtype=int)
+        # Add counts for chosen clone
+        tot += countar
+    return tot
 
 def steady_total_progenitors(alpha, omega, mup, p, num_of_clones, bone_capacity):
     """
