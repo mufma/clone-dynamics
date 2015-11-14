@@ -136,8 +136,10 @@ class gillespie:
 	def calctimestep(self, a0):
 		"""
 		Calculate timestep sampled from exponential distribution.
+		Since random.random() generates number in [0, 1)
+		1.0 - random.random() will exclude 0 and generate (0,1]
 		"""
-		r = random.random()
+		r = 1.0 - random.random()
 
 		return (1./a0)*math.log(1./r)
 
